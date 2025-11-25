@@ -8,9 +8,18 @@ import {
   useMotionValue
 } from 'framer-motion';
 import {
-  Github, Linkedin, Server, Globe,
-  Terminal, Atom, FileCode,
-  Layers, Database, ArrowUpRight, Download,
+  Github,
+  Linkedin,
+  Server,
+  Globe,
+  Terminal,
+  Atom,
+  FileCode,
+  Layers,
+  Database,
+  ArrowUpRight,
+  Download,
+  FileText,
   type LucideIcon
 } from 'lucide-react';
 import * as THREE from 'three';
@@ -36,7 +45,7 @@ interface Project {
   video: string;
   tech: string;
   link: string;
-  type: 'web' | 'mobile'; // Added to handle sizing logic
+  type: 'web' | 'mobile';
 }
 
 // --- FONTS & GLOBAL STYLES ---
@@ -79,23 +88,23 @@ const experience: Experience[] = [
   {
     company: "Rovia",
     role: "Contractor (Mobile)",
-    period: "2025 - Present",
+    period: "Sep 2025 - Present",
     desc: "Spearheading the React Native architecture. Bridging the gap between complex backend trading algorithms and smooth, 60fps mobile animations.",
-    tags: ["React Native", "Bridge", "iOS/Android"]
+    tags: ["React Native", "Prototyping", "API Integration"]
   },
   {
     company: "NeoITO",
     role: "SDE 1 (Front-End)",
-    period: "Jan - Sep 2025",
-    desc: "Optimized core rendering engines for high-traffic mobile applications. Reduced load times by 40% through aggressive code splitting and asset optimization.",
-    tags: ["Performance", "Expo", "Optimization"]
+    period: "Jan 2025 - Sep 2025",
+    desc: "Developed and maintained front-end components for mobile apps using React Native (Expo) and TypeScript. Implemented responsive UI patterns, performance optimizations, and cross-platform compatibility while maintaining high code quality standards.",
+    tags: ["Performance", "Expo", "TypeScript"]
   },
   {
     company: "Xorstack",
     role: "Full Stack Developer",
-    period: "2022 - 2025",
-    desc: "Led the 0-1 development of the Vyapy ecosystem. Managed a cross-functional team to deliver 3 interconnected apps with real-time synchronization.",
-    tags: ["Full Stack", "Leadership", "System Design"]
+    period: "Dec 2022 - Jan 2025",
+    desc: "Led a small team building end-to-end mobile apps (React Native) and backend services (Node.js, Strapi, MongoDB). Designed and launched Vyapy consumer & business apps and Bread Factory consumer app. Integrated FCM for notifications and implemented Redux state management.",
+    tags: ["Full Stack", "Team Lead", "System Design"]
   }
 ];
 
@@ -104,27 +113,26 @@ const projects: Project[] = [
   {
     title: "JAGATJIT",
     category: "Interactive Web Experience",
-    // Ensure JAGATJIT.mov is in public/assets/ folder
     video: "/JAGATJIT.mp4",
     tech: "GSAP / React",
     link: "https://www.jagatjit.com/",
-    type: 'web' // Landscape
+    type: 'web'
   },
   {
     title: "ROVIA",
     category: "FinTech Mobile App",
-    video: "/rovia.mp4", // Ensure rovia.mp4 is in public/assets/
+    video: "/rovia.mp4",
     tech: "Expo / React Native",
     link: "#",
-    type: 'mobile' // Portrait
+    type: 'mobile'
   },
   {
     title: "VYAPY",
     category: "DINE IN",
-    video: "vyapy.mp4",
+    video: "/vyapy.mp4",
     tech: "React Native / Redux",
     link: "#",
-    type: 'mobile' // Portrait
+    type: 'mobile'
   },
   {
     title: "BREAD FACTORY",
@@ -132,13 +140,12 @@ const projects: Project[] = [
     video: "https://videos.pexels.com/video-files/4122588/4122588-hd_1280_720_30fps.mp4",
     tech: "React Native / Razorpay",
     link: "#",
-    type: 'mobile' // Portrait
+    type: 'mobile'
   }
 ];
 
 // --- 3D BACKGROUND ---
 function StarField() {
-  // Fixed Ref Type for Three.js
   const ref = useRef<THREE.Points>(null!);
 
   const sphere = useMemo(() => {
@@ -190,9 +197,25 @@ const Header = () => (
       <a href="#contact" className="hover:text-white transition-colors">CONTACT</a>
     </div>
 
-    <a href="/resume.pdf" download className="hidden md:flex items-center gap-2 border border-white/20 px-4 py-2 rounded-full text-xs font-mono text-white hover:bg-white hover:text-black transition-all">
-      <Download size={14} /> DOWNLOAD CV
-    </a>
+    <div className="hidden md:flex gap-3">
+      <a
+        href="./DommetiVasanth_ReactNative_3Y.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 border border-white/20 px-4 py-2 rounded-full text-xs font-mono text-white hover:bg-white hover:text-black transition-all"
+      >
+        <FileText size={14} /> VIEW RESUME
+      </a>
+
+      <a
+        href="./DommetiVasanth_ReactNative_3Y.pdf"
+        download
+        className="flex items-center justify-center border border-white/20 w-9 h-9 rounded-full text-white hover:bg-white hover:text-black transition-all"
+        title="Download Resume"
+      >
+        <Download size={14} />
+      </a>
+    </div>
   </nav>
 );
 
@@ -232,12 +255,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           loop
           muted
           playsInline
-          // Logic for sizing based on type
           className={`w-full h-full transition-opacity duration-700 opacity-50 group-hover:opacity-90 grayscale group-hover:grayscale-0 
              ${project.type === 'mobile' ? 'object-contain' : 'object-cover'}
            `}
         />
-        {/* Overlay gradient for text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
       </div>
 
@@ -249,14 +270,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
             <p className="text-slate-400 font-mono text-sm">{project.tech}</p>
           </div>
 
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noreferrer"
-            className="bg-white/10 p-3 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 hover:bg-cyan-500 hover:text-black cursor-pointer pointer-events-auto"
-          >
-            <ArrowUpRight size={24} />
-          </a>
+          {project.title === "JAGATJIT" && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noreferrer"
+              className="bg-white/10 p-3 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 hover:bg-cyan-500 hover:text-black cursor-pointer pointer-events-auto"
+            >
+              <ArrowUpRight size={24} />
+            </a>
+          )}
         </div>
       </div>
     </motion.div>
@@ -266,16 +289,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
 const SkillMarquee = () => {
   return (
     <div className="w-full overflow-hidden py-10 bg-black/50 border-y border-white/5 backdrop-blur-sm">
-      <div className="flex w-[200%]">
-        {[0, 1].map((i) => (
+      <div className="flex w-[400%]">
+        {[0, 1, 2, 3].map((i) => (
           <motion.div
             key={i}
-            animate={{ x: "-50%" }}
-            transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-            className="flex gap-16 pr-16 w-full justify-around"
+            animate={{ x: "-100%" }}
+            transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+            className="flex flex-1 items-center justify-between gap-10 md:gap-20 px-8 md:px-16 min-w-max"
           >
             {skills.map((skill, idx) => (
-              <div key={idx} className="flex items-center gap-3 shrink-0 group">
+              <div key={idx} className="flex items-center gap-4 shrink-0 group">
                 <div
                   className="p-3 rounded-full bg-white/5 border border-white/5 group-hover:bg-white/10 transition-colors"
                   style={{ color: skill.color, borderColor: `${skill.color}20` }}
@@ -283,7 +306,7 @@ const SkillMarquee = () => {
                   <skill.icon size={24} />
                 </div>
                 <span
-                  className="font-display font-medium text-lg uppercase tracking-wider text-slate-400 group-hover:text-white transition-colors"
+                  className="font-display font-medium text-lg uppercase tracking-wider text-slate-400 group-hover:text-white transition-colors whitespace-nowrap leading-none pt-1"
                 >
                   {skill.name}
                 </span>
@@ -347,8 +370,23 @@ export default function App() {
                   <div className="absolute inset-0 border border-white translate-x-1 translate-y-1 -z-10 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform" />
                 </a>
 
-                <a href="/resume.pdf" download className="px-8 py-3 border border-white/20 text-white font-mono text-sm hover:bg-white/5 transition-colors flex items-center gap-2">
-                  <Download size={16} /> CV
+                {/* View CV Button */}
+                <a
+                  href="./DommetiVasanth_ReactNative_3Y.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3 border border-white/20 text-white font-mono text-sm hover:bg-white/5 transition-colors flex items-center gap-2"
+                >
+                  <FileText size={16} /> VIEW CV
+                </a>
+
+                {/* Download CV Button */}
+                <a
+                  href="./DommetiVasanth_ReactNative_3Y.pdf"
+                  download
+                  className="px-8 py-3 border border-white/20 text-white font-mono text-sm hover:bg-white/5 transition-colors flex items-center gap-2"
+                >
+                  <Download size={16} /> DOWNLOAD
                 </a>
 
                 <a href="https://github.com/vasanthdommeti" target="_blank" rel="noreferrer" className="px-8 py-3 border border-white/20 text-white font-mono text-sm hover:bg-white/5 transition-colors flex items-center gap-2">
